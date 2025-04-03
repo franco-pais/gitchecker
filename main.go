@@ -99,7 +99,6 @@ func processDomain(domain string, outputFile *os.File, outputMutex *sync.Mutex) 
                         outputMutex.Lock()
                         fmt.Fprintf(outputFile, "%s\n", domain)
                         outputMutex.Unlock()
-                        fmt.Printf("[VALID] Directorio válido en %s\n", url)
                 }
         }
 }
@@ -119,11 +118,6 @@ func checkGitDirectory(url string) bool {
                 return false
         }
         defer resp.Body.Close()
-
-        if resp.StatusCode == http.StatusOK {
-                fmt.Printf("[OK] Directorio .git encontrado: %s\n", url)
-                return true
-        }
 
         fmt.Printf("[FAIL] No se encontró el directorio .git en: %s (Status: %d)\n", url, resp.StatusCode)
         return false
